@@ -4,8 +4,23 @@
  * @link https://www.prisma.io/docs/guides/database/seed-database
  */
 import { PrismaClient } from '@prisma/client';
+import { TodoList } from './_sqlite/specs';
 
 const prisma = new PrismaClient();
+
+export const todos: TodoList = [
+  {
+    id: 1,
+    title: 'zkdfj',
+    done: true,
+  },
+  {
+    id: 2,
+    title: 'ajslk',
+    done: false,
+  },
+  { id: 3, title: 'aksdpa', done: true },
+];
 
 async function main() {
   const firstPostId = '5c03994c-fc16-47e0-bd02-d218a370a078';
@@ -20,6 +35,13 @@ async function main() {
     },
     update: {},
   });
+
+  // await prisma.todo.create({
+  //   data: {
+  //     done: false,
+  //     title: 'something',
+  //   },
+  // });
 }
 
 main()

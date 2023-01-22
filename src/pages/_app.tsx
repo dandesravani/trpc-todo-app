@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import type { AppType, AppProps } from 'next/app';
 import type { ReactElement, ReactNode } from 'react';
 import { DefaultLayout } from '~/components/DefaultLayout';
+import { MantineProvider } from '@mantine/core';
 import { trpc } from '~/utils/trpc';
 
 export type NextPageWithLayout<
@@ -19,7 +20,18 @@ const MyApp = (({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout =
     Component.getLayout ?? ((page) => <DefaultLayout>{page}</DefaultLayout>);
 
-  return getLayout(<Component {...pageProps} />);
+  return (
+    <MantineProvider
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{
+        /** Put your mantine theme override here */
+        colorScheme: 'light',
+      }}
+    >
+      {getLayout(<Component {...pageProps} />)};
+    </MantineProvider>
+  );
 }) as AppType;
 
 export default trpc.withTRPC(MyApp);
